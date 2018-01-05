@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests, sys, getopt, time
 
-retour = ""
 
 ##############################
 # Récupération des arguments #
@@ -29,38 +28,45 @@ for opt, arg in opts:
     elif opt == '-d':
         requestedDate = arg
 
-####################
-# Authentification #
-####################
 
-session = requests.Session()
-payload = {'email': email, 'password': password}
-URLconnection = 'http://fantasy.sofoot.com/login.php'
-r = session.post(URLconnection, data=payload)
+def main(_email, _password, _requesteddate):
+
+    retour = ""
+
+    ####################
+    # Authentification #
+    ####################
+    session = requests.Session()
+    payload = {'email': _email, 'password': _password}
+    URLconnection = 'http://fantasy.sofoot.com/login.php'
+    r = session.post(URLconnection, data=payload)
 
 
-#########################################
-# Récupération des compétitions du jour #
-#########################################
+    #########################################
+    # Récupération des compétitions du jour #
+    #########################################
 
-URLcompetitions = 'http://fantasy.sofoot.com/ajax_panel2.php?date=' + requestedDate
-ajaxMatches = session.get(URLcompetitions)
-soup = BeautifulSoup(ajaxMatches.content, "lxml")
-competitions = soup.find_all(class_="nom-competition-pick")
+    URLcompetitions = 'http://fantasy.sofoot.com/ajax_panel2.php?date=' + _requesteddate
+    ajaxMatches = session.get(URLcompetitions)
+    soup = BeautifulSoup(ajaxMatches.content, "lxml")
+    competitions = soup.find_all(class_="nom-competition-pick")
 
-for competition in competitions :
-    URLmatches = "http://fantasy.sofoot.com/ajax_panel3.php?competition=" + competition.string
-    ajaxMatches = session.get(URLmatches)
-    soupMatches = BeautifulSoup(ajaxMatches.content, "lxml")
-    teams = soupMatches.find_all(class_="nom-pick-seul")
-    cotes = soupMatches.find_all(class_="valeur-cote")
-    i = 0
-    while i < len(teams):
-        retour+=(competition.string + ','
-                      + teams[i].string + ',' + cotes[i].string[9:-2] + ','
-                      + teams[i + 1].string + ',' + cotes[i + 1].string[9:-2]) + '\n'
-        i += 2
+    for competition in competitions :
+        URLmatches = "http://fantasy.sofoot.com/ajax_panel3.php?competition=" + competition.string
+        ajaxMatches = session.get(URLmatches)
+        soupMatches = BeautifulSoup(ajaxMatches.content, "lxml")
+        teams = soupMatches.find_all(class_="nom-pick-seul")
+        cotes = soupMatches.find_all(class_="valeur-cote")
+        i = 0
+        while i < len(teams):
+            retour+=(competition.string + ','
+                          + teams[i].string + ',' + cotes[i].string[9:-2] + ','
+                          + teams[i + 1].string + ',' + cotes[i + 1].string[9:-2]) + '\n'
+            i += 2
 
-print(retour)
+    print(retour)
+    return retour
 
+if __name__ == '__main__':
+    main(email, password, requestedDate)
 

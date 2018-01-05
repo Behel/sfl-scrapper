@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests, sys, getopt, time
 
+retour = ""
+
 ##############################
 # Récupération des arguments #
 ##############################
@@ -50,10 +52,15 @@ for competition in competitions :
     URLmatches = "http://fantasy.sofoot.com/ajax_panel3.php?competition=" + competition.string
     ajaxMatches = session.get(URLmatches)
     soupMatches = BeautifulSoup(ajaxMatches.content, "lxml")
-    print(soupMatches.prettify())
     teams = soupMatches.find_all(class_="nom-pick-seul")
     cotes = soupMatches.find_all(class_="valeur-cote")
-    print(teams)
-    print(cotes)
+    i = 0
+    while i < len(teams):
+        retour+=(competition.string + ','
+                      + teams[i].string + ',' + cotes[i].string[9:-2] + ','
+                      + teams[i + 1].string + ',' + cotes[i + 1].string[9:-2]) + '\n'
+        i += 2
+
+print(retour)
 
 

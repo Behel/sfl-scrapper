@@ -13,11 +13,11 @@ requestedDate = time.strftime("%Y-%m-%d")
 try:
     opts, args = getopt.getopt(sys.argv, "hepd:")
 except getopt.GetoptError:
-    print('scrapsfl.py -e <email> -p <password> -d <date>')
+    print('scrapMatches.py -e <email> -p <password> -d <date>')
     sys.exit(2)
 for opt, arg in opts:
     if opt == '-h':
-        print('scrapsfl.py -e <email> -p <password> -d <date>')
+        print('scrapMatches.py -e <email> -p <password> -d <date>')
         sys.exit()
     elif opt == '-e':
         email = arg

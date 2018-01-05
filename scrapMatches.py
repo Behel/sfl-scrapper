@@ -10,8 +10,9 @@ password = ''
 requestedDate = time.strftime("%Y-%m-%d")
 # Par défaut date du jour
 
+sys.argv.remove(sys.argv[0])
 try:
-    opts, args = getopt.getopt(sys.argv, "hepd:")
+    opts, args = getopt.getopt(sys.argv, 'he:p:d:')
 except getopt.GetoptError:
     print('scrapMatches.py -e <email> -p <password> -d <date>')
     sys.exit(2)
@@ -33,7 +34,7 @@ for opt, arg in opts:
 session = requests.Session()
 payload = {'email': email, 'password': password}
 URLconnection = 'http://fantasy.sofoot.com/login.php'
-session.post(URLconnection, data=payload)
+r = session.post(URLconnection, data=payload)
 
 
 #########################################
@@ -41,7 +42,18 @@ session.post(URLconnection, data=payload)
 #########################################
 
 URLcompetitions = 'http://fantasy.sofoot.com/ajax_panel2.php?date=' + requestedDate
-ajaxCompetitions = session.get(URLcompetitions)
-soup = BeautifulSoup(ajaxCompetitions.content, "lxml")
-print(soup.prettify())
+ajaxMatches = session.get(URLcompetitions)
+soup = BeautifulSoup(ajaxMatches.content, "lxml")
+competitions = soup.find_all(class_="nom-competition-pick")
+
+for competition in competitions :
+    URLmatches = "http://fantasy.sofoot.com/ajax_panel3.php?competition=" + competition.string
+    ajaxMatches = session.get(URLmatches)
+    soupMatches = BeautifulSoup(ajaxMatches.content, "lxml")
+    print(soupMatches.prettify())
+    teams = soupMatches.find_all(class_="nom-pick-seul")
+    cotes = soupMatches.find_all(class_="valeur-cote")
+    print(teams)
+    print(cotes)
+
 

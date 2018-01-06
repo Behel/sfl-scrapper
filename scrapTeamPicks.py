@@ -39,7 +39,6 @@ def main(_email, _password):
     URLconnection = 'http://fantasy.sofoot.com/login.php'
     r = session.post(URLconnection, data=payload)
 
-
     #########################################
     # Récupération des compétitions du jour #
     #########################################
@@ -53,7 +52,8 @@ def main(_email, _password):
 
     i=2
     while i < len(p.tables[0]):
-        retour += p.tables[0][i][1]+","+p.tables[0][i][3]+"\n"
+        result = p.tables[0][i][3].split("(")
+        retour += p.tables[0][i][1]+","+result[0][:-1]+','+result[1][:-1]+"\n"
         i+=1
 
     print(retour)

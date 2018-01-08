@@ -37,9 +37,9 @@ def main(_email, _password, _requesteddate):
     # Authentification #
     ####################
     session = requests.Session()
-    payload = {'email': _email, 'password': _password}
+    payload = {'email': _email, 'password': _password, 'remember': 'on'}
     URLconnection = 'http://fantasy.sofoot.com/login.php'
-    r = session.post(URLconnection, data=payload)
+    session.post(URLconnection, data=payload)
 
 
     #########################################
@@ -61,7 +61,7 @@ def main(_email, _password, _requesteddate):
         while i < len(teams):
             retour+=(competition.string + ','
                           + teams[i].string + ',' + cotes[i].string[9:-2] + ','
-                          + teams[i + 1].string + ',' + cotes[i + 1].string[9:-2]) + '\n'
+                          + teams[i + 1].string + ',' + cotes[i + 1].string[9:-2] + '\n')
             i += 2
 
     print(retour)

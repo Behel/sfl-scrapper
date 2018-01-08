@@ -1,0 +1,2 @@
+slackweb
+beautifulsoup4

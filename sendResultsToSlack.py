@@ -25,7 +25,7 @@ for line in lines:
         elif int(elements[2])>50 :
             resultats += "*GOLDEN PIF* pour "+ prenom + " en choisissant _" + elements[1] + "_. Ca fait *"+elements[2]+"* points dans la cagnotte.\n"
         else :
-            resultats += prenom+" : + *"+ elements[2] +"* en choisissant _"+elements[1]+"_\n"
+            resultats += prenom+" : *"+ elements[2] +" pts* en choisissant _"+elements[1]+"_\n"
 
 slack.notify(
                 text=resultats,

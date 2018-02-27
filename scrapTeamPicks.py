@@ -51,6 +51,7 @@ def main(_email, _password):
     p.feed(teamLines)
 
     i=2
+    print(p.tables[0])
     while i < len(p.tables[0]):
         result = p.tables[0][i][3].split("(")
         try:

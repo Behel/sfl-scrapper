@@ -17,11 +17,11 @@ sys.argv.remove(sys.argv[0])
 try:
     opts, args = getopt.getopt(sys.argv, 'he:p:d:')
 except getopt.GetoptError:
-    print('scrapLigueEuropa.py -e <email> -p <password>')
+    print('scrapLDC.py -e <email> -p <password>')
     sys.exit(2)
 for opt, arg in opts:
     if opt == '-h':
-        print('scrapLigueEuropa.py -e <email> -p <password>')
+        print('scrapLDC.py -e <email> -p <password>')
         sys.exit()
     elif opt == '-e':
         email = arg
@@ -46,7 +46,7 @@ def main(_email, _password,_team_name):
     # Récupération des compétitions du jour #
     #########################################
 
-    URLEuropa = 'http://fantasy.sofoot.com/?tpl=group-europa'
+    URLEuropa = 'http://fantasy.sofoot.com/?tpl=group-champion'
     ajaxMatches = session.get(URLEuropa)
     soup = BeautifulSoup(ajaxMatches.content, "lxml")
 

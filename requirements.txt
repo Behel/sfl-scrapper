@@ -1,3 +1,4 @@
 slackweb
 beautifulsoup4
 requests
+lxml

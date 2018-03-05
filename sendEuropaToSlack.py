@@ -20,10 +20,10 @@ team2 = lines[1].split(',')[0]
 points2 = lines[1].split(',')[1]
 
 if points2 < points1:
-    resultats += "*" + team1 + "* est devant *" + team2 + "* par " + points2-points1 + " points d'avance ! _(" + \
+    resultats += "*" + team1 + "* est devant *" + team2 + "* par " + str(int(points1)-int(points2)) + " points d'avance ! _(" + \
                  points1 + " pts vs " + points2 + " pts)_"
 elif points2 > points1:
-    resultats += "*" + team2 + "* est devant *" + team1 + "* par " + points1 - points2 + " points d'avance ! _(" + \
+    resultats += "*" + team2 + "* est devant *" + team1 + "* par " + str(int(points2)-int(points1)) + " points d'avance ! _(" + \
                  points2 + " pts vs " + points1 + " pts)_"
 else:
     resultats += "*" + team1 + "* et *" + team2 + "* sont à égalité ! " + points2 + " pts chacun !"

@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, sys, getopt, time
+import requests, sys, getopt
 
 
 ##############################
@@ -10,8 +10,7 @@ email = ''
 password = ''
 # Insérez ci-dessous le nom de votre équipe
 team_name="Brazilala"
-requestedDate = time.strftime("%Y-%m-%d")
-# Par défaut date du jour
+
 
 sys.argv.remove(sys.argv[0])
 try:
@@ -51,11 +50,13 @@ def main(_email, _password,_team_name):
     soup = BeautifulSoup(ajaxMatches.content, "lxml")
 
     matches_coupe = soup.find_all(class_="tournament-bracket__match")
+    print(matches_coupe)
     for match in matches_coupe:
-        equipes_match = match.find_all(class_="tournament-bracket__code")
-        if team_name == equipes_match[0].string or team_name == equipes_match[1].string:
+        equipes_match = match.find_all("abbr")
+        if team_name == equipes_match[0].contents[0].strip() or team_name == equipes_match[1].contents[0].strip():
             score_match = match.find_all(class_="tournament-bracket__number")
-            retour = equipes_match[0].string + "," + score_match[0].string + '\n' + equipes_match[1].string + "," + score_match[1].string
+            retour = equipes_match[0].contents[0].strip() + "," + score_match[0].string + '\n' \
+                     + equipes_match[1].contents[0].strip() + "," + score_match[1].string
 
     print(retour)
     return retour

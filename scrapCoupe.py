@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, sys, getopt, time
+import requests, sys, getopt
 
 
 ##############################
@@ -8,8 +8,6 @@ import requests, sys, getopt, time
 
 email = ''
 password = ''
-requestedDate = time.strftime("%Y-%m-%d")
-# Par défaut date du jour
 
 sys.argv.remove(sys.argv[0])
 try:

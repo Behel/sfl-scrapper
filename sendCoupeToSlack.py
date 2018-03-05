@@ -1,4 +1,4 @@
-import slackweb, time, os
+import slackweb, os
 import scrapCoupe
 
 ##############################

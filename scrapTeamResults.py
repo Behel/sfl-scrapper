@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, sys, getopt, time
-import urllib.request
+import requests, sys, getopt
 from util.html_table_parser import HTMLTableParser
 
 
@@ -15,11 +14,11 @@ sys.argv.remove(sys.argv[0])
 try:
     opts, args = getopt.getopt(sys.argv, 'he:p:')
 except getopt.GetoptError:
-    print('scrapTeamResults.py -e <email> -p <password> -d <date>')
+    print('scrapTeamResults.py -e <email> -p <password>')
     sys.exit(2)
 for opt, arg in opts:
     if opt == '-h':
-        print('scrapTeamResults.py -e <email> -p <password> -d <date>')
+        print('scrapTeamResults.py -e <email> -p <password>')
         sys.exit()
     elif opt == '-e':
         email = arg

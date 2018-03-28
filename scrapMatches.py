@@ -57,12 +57,20 @@ def main(_email, _password, _requesteddate):
         soupMatches = BeautifulSoup(ajaxMatches.content, "lxml")
         teams = soupMatches.find_all(class_="nom-pick-seul")
         cotes = soupMatches.find_all("b")
+        scores = soupMatches.find_all(class_="ribbon-inner")
         i = 0
         while i < len(teams):
-            retour+=(competition.string + ','
-                          + teams[i].string + ',' + cotes[i].string + ','
-                          + teams[i + 1].string + ',' + cotes[i + 1].string + '\n')
-            i += 2
+            print(scores)
+            if not scores:
+                retour+=(competition.string + ','
+                              + teams[i].string + ',' + cotes[i].string + ','
+                              + teams[i + 1].string + ',' + cotes[i + 1].string + '\n')
+                i += 2
+            else :
+                retour += (competition.string + ','
+                           + teams[i].string + ',' + cotes[i].string + ',' + scores[i].string[:-4] + ','
+                           + teams[i + 1].string + ',' + cotes[i + 1].string + ',' + scores[i+1].string[:-4] + '\n')
+                i += 2
 
     print(retour)
     return retour

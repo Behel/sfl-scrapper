@@ -3,13 +3,13 @@ import requests, sys, getopt, time
 
 
 ##############################
-# Récupération des arguments #
+# Recuperation des arguments #
 ##############################
 
 email = ''
 password = ''
 requestedDate = time.strftime("%Y-%m-%d")
-# Par défaut date du jour
+# Par defaut date du jour
 
 sys.argv.remove(sys.argv[0])
 try:
@@ -43,7 +43,7 @@ def main(_email, _password, _requesteddate):
 
 
     #########################################
-    # Récupération des compétitions du jour #
+    # Recuperation des competitions du jour #
     #########################################
 
     URLcompetitions = 'http://fantasy.sofoot.com/ajax_panel2.php?date=' + _requesteddate
@@ -56,12 +56,12 @@ def main(_email, _password, _requesteddate):
         ajaxMatches = session.get(URLmatches)
         soupMatches = BeautifulSoup(ajaxMatches.content, "lxml")
         teams = soupMatches.find_all(class_="nom-pick-seul")
-        cotes = soupMatches.find_all(class_="valeur-cote")
+        cotes = soupMatches.find_all("b")
         i = 0
         while i < len(teams):
             retour+=(competition.string + ','
-                          + teams[i].string + ',' + cotes[i].string[9:-2] + ','
-                          + teams[i + 1].string + ',' + cotes[i + 1].string[9:-2] + '\n')
+                          + teams[i].string + ',' + cotes[i].string + ','
+                          + teams[i + 1].string + ',' + cotes[i + 1].string + '\n')
             i += 2
 
     print(retour)

@@ -60,7 +60,6 @@ def main(_email, _password, _requesteddate):
         scores = soupMatches.find_all(class_="ribbon-inner")
         i = 0
         while i < len(teams):
-            print(scores)
             if not scores:
                 retour+=(competition.string + ','
                               + teams[i].string + ',' + cotes[i].string + ','
